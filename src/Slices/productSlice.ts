@@ -13,7 +13,7 @@ type Product = {
 };
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNGQzZGRlMy03M2QyLTQwMmEtYWZkNC0yMzgwMjI1NGU1MGEiLCJlbWFpbCI6Im9wZXllbWlpYnJhaGltNjY3QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczNDAwNjkxNiwiZXhwIjoxNzM0MDkzMzE2fQ.19X29Hh9IZSvtnm5CAssJhHZ0N1cFJIvXre9Lyg_pRw";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNGQzZGRlMy03M2QyLTQwMmEtYWZkNC0yMzgwMjI1NGU1MGEiLCJlbWFpbCI6Im9wZXllbWlpYnJhaGltNjY3QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczNDEwNzYwMiwiZXhwIjoxNzM0MTk0MDAyfQ.XxS6-7ORh_74PFUJOpVynPGisQBolME-HTibH_cFy0w";
 export const productSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000",

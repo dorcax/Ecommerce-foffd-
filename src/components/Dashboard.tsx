@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sidebar } from "./sidebar";
+import { sidebar } from "../constant/sidebar";
 import { LayoutDashboard, Menu, Moon, Search } from "lucide-react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <div className="flex  overflow-hidden relative text-[#E0E0E0] ">
       <div
-        className={` container bg-[#343A40]  min-h-screen  sticky ${
+        className={` container bg-[#343A40]  h-[100vh] sticky left-0 top-0 overflow-hidden ${
           !open ? "w-20" : "w-52"
         } transition-all ease-in-out duration-500 p-3`}
       >
@@ -65,7 +65,7 @@ const Dashboard = () => {
                       <div className="flex space-x-3 hover:text-[#FF851B] ">
                         <span>{sidebarItem.img}</span>
                         <span className={`${!open ? "hidden" : "block"}`}>
-                          {" "}
+                          
                           {sidebarItem.name}
                         </span>
                       </div>
@@ -123,7 +123,7 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center gap-6 ">
             <div className="flex  gap-3">
-              <div className=" py-2 ">
+              <div className=" py-2 text-gray-600 ">
                 <Moon />
               </div>
               <img

@@ -99,7 +99,7 @@ const ProductList = () => {
                     <div>
                       Size:
                       <span className="uppercase text-xs">
-                        {" "}
+                        
                         {productItem.variant}
                       </span>
                     </div>
