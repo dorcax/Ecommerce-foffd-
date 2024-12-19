@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChevronDown, ChevronUp, Pencil, Trash, Eye } from "lucide-react";
 import { useGetProductsQuery } from "../../Slices/productSlice.ts";
 import Modal from "../../components/Modal";
+import { Link } from "react-router-dom";
 const ProductList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -18,7 +19,7 @@ const ProductList = () => {
     return <h1>loading</h1>;
   }
   return (
-    <div className=" overflow-hidden m-8 ">
+    <div className=" overflow-hidden p-4 ">
       <div className="container min-h-screen bg-white rounded-lg relative">
         <div className="flex justify-between px-3 items-center">
           <div className="text-black text-xl capitalize font-medium py-4">
@@ -120,7 +121,7 @@ const ProductList = () => {
                 <td className="p-3 ">
                   <div className="flex space-x-4">
                     <button className=" rounded-lg p-2 bg-orange-200 hover:bg-[#FF851B] ">
-                      <Pencil className="size-4  " />
+                 <Link to={`/dashboard/edit-product/${productItem.id}`}>     <Pencil className="size-4  " /></Link>
                     </button>
                     <button className=" rounded-lg p-2 bg-red-400 hover:bg-red-600 ">
                       <Trash className="size-4" />

@@ -21,20 +21,20 @@ export const sidebar = [
         name: "list",
         link: "/dashboard/list-product",
       },
-      {
-        id: 2,
-        name: "grid",
-        link: "/dashboard/create-product",
-      },
-      {
-        id: 3,
-        name: "details",
-        link: "/dashboard/product",
-      },
+      // {
+      //   id: 2,
+      //   name: "grid",
+      //   link: "/dashboard/create-product",
+      // },
+      // {
+      //   id: 3,
+      //   name: "details",
+      //   link: "/dashboard/product",
+      // },
       {
         id: 4,
         name: "edit",
-        link: "/dashboard/product",
+        link: "/dashboard/edit-product/:id",
       },
       {
         id: 5,

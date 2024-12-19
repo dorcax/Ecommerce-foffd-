@@ -20,6 +20,17 @@ const Modal = ({ open, setOpen, selectedProduct }) => {
               {" "}
               {selectedProduct?.name}
             </span>
+
+          </div>
+          <div>
+            <span className="text-lg capitalize font-bold text-gray-700">
+              {" "}
+              Description:
+            </span>
+            <span className="text-sm font-normal text-gray-700 ">
+              {" "}
+              {selectedProduct?.description}
+            </span>
           </div>
           <div>
             <span className="text-lg capitalize font-bold text-gray-700">

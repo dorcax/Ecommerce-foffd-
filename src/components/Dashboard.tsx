@@ -17,11 +17,11 @@ const Dashboard = () => {
 
   // con
   return (
-    <div className="flex  overflow-hidden relative text-[#E0E0E0] ">
+    <div className="flex overflow-hidden h-screen relative text-[#E0E0E0] ">
       <div
-        className={` container bg-[#343A40]  h-[100vh] sticky left-0 top-0 overflow-hidden ${
+        className={` bg-[#343A40] sticky top-0 h-screen ${
           !open ? "w-20" : "w-52"
-        } transition-all ease-in-out duration-500 p-3`}
+        } transition-all ease-in-out duration-500 p-2`}
       >
         <div className="  flex justify-between items-center  ">
           <img
@@ -42,7 +42,7 @@ const Dashboard = () => {
           <nav className="flex items-center ">
             <ul className="capitalize w-full">
               <li
-                className={`py-3 text-md flex gap-3 ${
+                className={`py-2 text-md flex gap-3 ${
                   !open ? "hidden" : "block"
                 } `}
               >
@@ -55,7 +55,7 @@ const Dashboard = () => {
                 return (
                   <li
                     key={sidebarItem.id}
-                    className="py-3 text-md   cursor-pointer  transition-all duration-500 ease-in-out  "
+                    className="py-2 text-md   cursor-pointer  transition-all duration-500 ease-in-out  "
                   >
                     <div
                       className={`flex justify-between ${
@@ -111,7 +111,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className=" flex-1  bg-stone-200 flex flex-col ">
+      <div className=" flex-1 overflow-y-auto bg-stone-200 h-screen flex flex-col ">
         <div className="  flex  justify-between items-center p-4">
           <div className="flex gap-4  text-gray-700 items-center">
             <div onClick={() => setOpen(!open)}>
