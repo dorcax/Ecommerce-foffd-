@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp, Pencil, Trash, Eye } from "lucide-react";
-import { useGetProductsQuery } from "../../Slices/productSlice.ts";
+import { useDeleteProductMutation, useGetProductsQuery } from "../../Slices/productSlice.ts";
 import Modal from "../../components/Modal";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 const ProductList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { data: products, error, isLoading } = useGetProductsQuery();
+  const [deleteProduct ]=useDeleteProductMutation()
 
   const handleModalChange = (product: any) => {
     console.log("products", product);
     setSelectedProduct(product);
     setIsOpenModal(true);
   };
+
+  const handleDeleteProduct=async(id:string)=>{
+    try {
+      if(window.confirm("are you sure you want to delete this product")){
+        const res =await deleteProduct(id).unwrap()
+        toast.success("product deleted")
+        console.log("deleted items",res)
+      }
+     
+    } catch (error) {
+      const errorMessage=error?.data?.message.join("\n")
+      toast.error(errorMessage)
+    }
+
+  }
 
   if (isLoading) {
     return <h1>loading</h1>;
@@ -29,7 +46,7 @@ const ProductList = () => {
           <div className="flex  space-x-4">
             {/* add product button */}
             <button className="px-3  py-1 bg-[#FF851B] capitalize rounded-xl text-white text-sm">
-              add product
+            <Link to="/dashboard/create-product">add product</Link>
             </button>
             {/* end of add product button */}
             <div className="relative ">
@@ -86,7 +103,7 @@ const ProductList = () => {
                   <input type="checkbox" name="" id="" />
                 </td>
                 <td className="p-3 flex items-center space-x-2">
-                  <div className=" w-14 h-14 border bg-gray-200 p-2 rounded-md">
+                  <div className=" w-14 h-14 border bg-gray-200 p-1 rounded-md">
                     <img
                       src={productItem.imageUrl}
                       alt={productItem.name}
@@ -123,7 +140,7 @@ const ProductList = () => {
                     <button className=" rounded-lg p-2 bg-orange-200 hover:bg-[#FF851B] ">
                  <Link to={`/dashboard/edit-product/${productItem.id}`}>     <Pencil className="size-4  " /></Link>
                     </button>
-                    <button className=" rounded-lg p-2 bg-red-400 hover:bg-red-600 ">
+                    <button className=" rounded-lg p-2 bg-red-400 hover:bg-red-600 " onClick={()=>handleDeleteProduct(productItem.id)}>
                       <Trash className="size-4" />
                     </button>
                   </div>

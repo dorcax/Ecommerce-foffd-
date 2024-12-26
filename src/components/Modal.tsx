@@ -13,8 +13,8 @@ const Modal = ({ open, setOpen, selectedProduct }) => {
             <X className="text-orange-600" />
           </span>
         </div>
-        <div className="py-4 space-y-4">
-          <div className="">
+        <div className=" space-y-2">
+          <div className="">git 
             <span className="text-lg capitalize text-gray-700 font-bold"> name :</span>
             <span className="text-sm font-normal text-gray-700 ">
               {" "}
@@ -25,13 +25,12 @@ const Modal = ({ open, setOpen, selectedProduct }) => {
           <div>
             <span className="text-lg capitalize font-bold text-gray-700">
               {" "}
-              Description:
+              product image
             </span>
-            <span className="text-sm font-normal text-gray-700 ">
-              {" "}
-              {selectedProduct?.description}
-            </span>
+            <img src={selectedProduct?.imageUrl} alt={selectedProduct?.name} width={150} height={30} />
           </div>
+          
+          
           <div>
             <span className="text-lg capitalize font-bold text-gray-700">
               {" "}

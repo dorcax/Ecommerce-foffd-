@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { buildErrorMessage } from "vite";
+import { api } from "./apiSlice";
 
 type Product = {
   id: string;
@@ -27,46 +28,58 @@ type ProductData = {
   variant: string;
   imageUrl:null
 }
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNGQzZGRlMy03M2QyLTQwMmEtYWZkNC0yMzgwMjI1NGU1MGEiLCJlbWFpbCI6Im9wZXllbWlpYnJhaGltNjY3QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczNDU4OTQ2OCwiZXhwIjoxNzM1MTk0MjY4fQ.NSRsxUDnlEG3lmLhJf0Z5734THZHyzFK5l8eETZcrIQ";
-export const productSlice = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/product",
-    prepareHeaders: (headers) => {
-      headers.set("Authorization", `Bearer ${token}`);
-    },
-  }),
-  tagTypes: ["Product", "Category"],
+
+export const productSlice = api.injectEndpoints({
+ 
   endpoints: (builder) => ({
     getProducts: builder.query<Product[], void>({
       query: () => ({
-        url: "/",
+        url: "/product",
       }),
       providesTags: ["Product"],
     }),
     getCategories: builder.query<Category[], void>({
       query: () => ({
-        url: "/category",
+        url: "/product/category",
       }),
       providesTags: ["Category"],
     }),
     // get each product
     getProduct: builder.query({
       query: (id) => ({
-        url: `/${id}`,
+        url: `/product/${id}`,
       }),
       providesTags: ["Product"],
     }),
+    // create a product
     createProduct: builder.mutation<Product, FormData>({
       query: (data) => {
         return {
-          url: "/",
+          url: "/product",
           method: "POST",
           body: data,
         };
       },
       invalidatesTags: ["Product"],
     }),
+    // update a product
+    updateProduct:builder.mutation<Product,{id:string,data:FormData}>({
+      query:({id,data})=>({
+       url:`/product/${id}`,
+       method:"PATCH",
+       body:data
+
+      }),
+      invalidatesTags:["Product"]
+    }),
+    deleteProduct:builder.mutation<Product,string>({
+      query:(id)=>({
+        url:`/product/${id}`,
+        method:"DELETE"
+      }),
+     invalidatesTags:["Product"]
+    })
+   
   }),
 });
 
@@ -75,4 +88,6 @@ export const {
   useGetCategoriesQuery,
   useCreateProductMutation,
   useGetProductQuery,
+  useUpdateProductMutation,
+  useDeleteProductMutation
 } = productSlice;

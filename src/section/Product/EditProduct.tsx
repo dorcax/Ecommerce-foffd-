@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { CloudUpload } from "lucide-react";
+import { CloudUpload,LoaderCircle } from "lucide-react";
 import ColorPicker from "../../components/ColorPicker";
 import SizePicker from "../../components/SizePicker";
 import CategorySelect from "../../components/CategorySelect";
-import { useGetProductQuery } from "../../Slices/productSlice";
+import {
+  useGetProductQuery,
+  useUpdateProductMutation,
+} from "../../Slices/productSlice";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EditProduct = () => {
-  const {id } = useParams();
-  const { data: currProduct, isLoading, error} = useGetProductQuery(id);
- console.log("ppppphhhh",currProduct)
+  const { id } = useParams();
+  const { data: currProduct, isLoading, error } = useGetProductQuery(id);
+  const [updateProduct, { isLoading: loading }] = useUpdateProductMutation();
+
   const [data, setData] = useState({
     name: "",
     price: "",
@@ -49,6 +54,7 @@ const EditProduct = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files[0]);
     const file = e.target.files ? e.target.files[0] : null;
+    console.log("Selected file:", file);
     if (file) {
       setData((prev) => ({ ...prev, file }));
     }
@@ -68,9 +74,9 @@ const EditProduct = () => {
 
     setSelectedColor(color);
   };
-//   /useeffect for product
+  //   /useeffect for product
   useEffect(() => {
-   if (currProduct) {
+    if (currProduct) {
       setData({
         name: currProduct.name,
         price: currProduct.price,
@@ -85,17 +91,44 @@ const EditProduct = () => {
       });
       setSelectedColor(currProduct.color);
       setSelectedSize(currProduct.variant);
-   }
-    console.log("gggg", currProduct);
+    }
   }, [currProduct]);
-  if (isLoading) return <div>Loading product details...</div>;
 
-  
+  const handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", description);
+    formData.append("price", data.price);
+    formData.append("stock", data.stock);
+    formData.append("categoryId", selectedCategory.id);
+    formData.append("variant", selectedSize);
+    formData.append("color", selectedColor);
+    if (data.file) {
+      formData.append("file", data.file);
+      console.log("fillels", data.file);
+    }
+    console.log("formdata", formData);
+    try {
+      const product = await updateProduct({ id, formData }).unwrap();
+
+      toast.success("product uploaded successfully");
+    } catch (error) {
+      const errorMessage = error?.data?.message?.join("\n");
+
+      toast.error(errorMessage);
+    }
+  };
+
+  if (isLoading) return <div className="flex justify-center items-center text-black">
+    <div className="py-40 animate-spin border-2 w-20 h-20 text-green-600"><LoaderCircle  /></div>
+  </div>;
+
   return (
     <div>
       <section className="px-4 relative overflow-hidden  mt-8">
         {/* add product */}
-        <form action="" method="post">
+        <form action="" method="post" onSubmit={handleFormSubmission}>
           <div className="text-gray-700  bg-white shadow-2xl rounded-lg  w-full h-[20rem]  ">
             <div className="font-bold capitalize p-4  border-b text-md">
               add product photo
@@ -106,16 +139,24 @@ const EditProduct = () => {
               className="border-dashed border-2 relative m-4 h-[14rem] flex flex-col justify-center items-center"
             >
               <div className="flex flex-col items-center justify-center">
-                {data.file ? (
+                {data?.file ? (
                   // preview image
                   <img
                     src={URL.createObjectURL(data.file)}
                     alt="upload preview"
-                    className="w-full h-full object-cover rounded-lg"
+                    className=" object-cover rounded-lg"
+                    width={150}
+                    height={20}
                   />
                 ) : currProduct?.imageUrl ? (
                   // displaying existing image
-                  <img src={currProduct.imageUrl} alt="exisitng image" />
+                  <img
+                    src={currProduct.imageUrl}
+                    alt="exisitng image"
+                    className=" object-cover rounded-lg"
+                    width={150}
+                    height={20}
+                  />
                 ) : (
                   <div className="text-center text-gray-600  ">
                     <h2 className=" text-2xl font-medium">
@@ -135,7 +176,7 @@ const EditProduct = () => {
                   name="file"
                   id="img-file"
                   className="absolute invisible w-full h-full top-0 left-0 z-50"
-                  accept="image/png, image/jpeg"
+                  //   accept="image/png, image/jpeg"
                   onChange={handleFileChange}
                 />
               </div>
@@ -248,9 +289,15 @@ const EditProduct = () => {
             <div className="flex ml-auto  justify-end space-x-3  mr-20 w-[20rem] ">
               <button
                 type="submit"
-                className=" p-2 mb-2 bg-gray-100 text-sm  capitalize cursor-pointer rounded-lg hover:bg-gray-500 hover:text-white transition-all ease-in-out duration-500"
+                className={`p-2 mb-2 text-sm capitalize cursor-pointer rounded-lg transition-all ease-in-out duration-500
+                    ${
+                      loading
+                        ? "bg-red-800 text-white cursor-not-allowed"
+                        : "bg-gray-100 hover:bg-gray-500 hover:text-white"
+                    }`}
+                disabled={loading} // Disable the button when loading
               >
-                create product
+                {loading ? "Updating..." : "update product"}
               </button>
               <button
                 type="button"

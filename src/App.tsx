@@ -5,6 +5,8 @@ import CreateProduct from "./section/Product/CreateProduct";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditProduct from "./section/Product/EditProduct";
+import CreateCategory from "./section/Category/CreateCategory";
+import CategoryList from "./section/Category/CategoryList";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -29,6 +31,13 @@ const router = createBrowserRouter([
         path:"edit-product/:id",
 
         element:<EditProduct/>
+      },{
+        path:"create-category",
+        element:<CreateProduct/>
+      },
+      {
+        path:"list-categories",
+        element:<CategoryList/>
       }
     ],
   },
