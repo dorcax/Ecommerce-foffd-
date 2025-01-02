@@ -14,7 +14,7 @@ const Modal = ({ open, setOpen, selectedProduct }) => {
           </span>
         </div>
         <div className=" space-y-2">
-          <div className="">git 
+          <div className="">
             <span className="text-lg capitalize text-gray-700 font-bold"> name :</span>
             <span className="text-sm font-normal text-gray-700 ">
               {" "}

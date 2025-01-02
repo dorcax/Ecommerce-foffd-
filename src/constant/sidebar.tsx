@@ -40,15 +40,11 @@ export const sidebar = [
         name: "list",
         link: "/dashboard/list-categories",
       },
-      {
-        id: 2,
-        name: "edit",
-        link: "/dashboard/product",
-      },
+      
       {
         id: 3,
         name: "create",
-        link: "/dashboard/product",
+        link: "/dashboard/create-category",
       },
     ],
   },

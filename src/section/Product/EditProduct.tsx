@@ -81,13 +81,13 @@ const EditProduct = () => {
         name: currProduct.name,
         price: currProduct.price,
         stock: currProduct.stock,
-        file: currProduct.file,
+        file: currProduct.imageUrl,
       });
       setDescription(currProduct.description);
 
       setSelectedCategory({
-        id: currProduct.categoryId,
-        name: currProduct.name,
+        id: currProduct.category.id,
+        name: currProduct.category.name,
       });
       setSelectedColor(currProduct.color);
       setSelectedSize(currProduct.variant);

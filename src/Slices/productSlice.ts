@@ -6,22 +6,23 @@ type Product = {
   id: string;
   name: string;
   description: string;
-  price: number;
+  price: string;
   category: { id: string; name: string };
   stock: string;
   variant: string;
-  imageUrl: string;
+  imageUrl: null;
   color: string;
 };
 type Category = {
   id: string;
-  imageUrl: string;
+  imageUrl: null;
+  description:string;
   name: string;
 };
 type ProductData = {
   name: string;
   description: string;
-  price: string
+  price: number
   stock: string
   categoryId: string;
   color: string;
@@ -29,8 +30,9 @@ type ProductData = {
   imageUrl:null
 }
 
+
+
 export const productSlice = api.injectEndpoints({
- 
   endpoints: (builder) => ({
     getProducts: builder.query<Product[], void>({
       query: () => ({
@@ -38,56 +40,95 @@ export const productSlice = api.injectEndpoints({
       }),
       providesTags: ["Product"],
     }),
-    getCategories: builder.query<Category[], void>({
-      query: () => ({
-        url: "/product/category",
-      }),
-      providesTags: ["Category"],
-    }),
-    // get each product
-    getProduct: builder.query({
+
+    getProduct: builder.query<Product, string>({
       query: (id) => ({
         url: `/product/${id}`,
       }),
       providesTags: ["Product"],
     }),
-    // create a product
+
     createProduct: builder.mutation<Product, FormData>({
-      query: (data) => {
-        return {
-          url: "/product",
-          method: "POST",
-          body: data,
-        };
-      },
+      query: (data) => ({
+        url: "/product",
+        method: "POST",
+        body: data,
+      }),
       invalidatesTags: ["Product"],
     }),
-    // update a product
-    updateProduct:builder.mutation<Product,{id:string,data:FormData}>({
+
+    updateProduct: builder.mutation<Product, { id: string; data: FormData }>({
+      query: ({ id, data }) => ({
+        url: `/product/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Product"],
+    }),
+
+    deleteProduct: builder.mutation<Product, string>({
+      query: (id) => ({
+        url: `/product/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Product"],
+    }),
+
+    createCategory: builder.mutation<Category, FormData>({
+      query: (data) => ({
+        url: "/category",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Category"],
+    }),
+
+    getCategories: builder.query<Category[], void>({
+      query: () => ({
+        url: "/category",
+      }),
+      providesTags: ["Category"],
+    }),
+
+    getCategory: builder.query<Category, string>({
+      query: (id) => ({
+        url: `/category/${id}`,
+      }),
+      providesTags: ["Category"]
+    }),
+
+
+    updateCategory:builder.mutation<Category,{id:string,data:FormData}>({
       query:({id,data})=>({
-       url:`/product/${id}`,
-       method:"PATCH",
-       body:data
+        url:`/category/${id}`,
+        method:"PATCH",
+        body:data
 
       }),
-      invalidatesTags:["Product"]
+      invalidatesTags: ["Category"],
+
     }),
-    deleteProduct:builder.mutation<Product,string>({
-      query:(id)=>({
-        url:`/product/${id}`,
-        method:"DELETE"
+
+    deleteCategory: builder.mutation<Category, string>({
+      query: (id) => ({
+        url: `/category/${id}`,
+        method: "DELETE",
       }),
-     invalidatesTags:["Product"]
-    })
-   
+      invalidatesTags: ["Category"],
+    }),
   }),
 });
 
 export const {
   useGetProductsQuery,
-  useGetCategoriesQuery,
-  useCreateProductMutation,
   useGetProductQuery,
+  useCreateProductMutation,
   useUpdateProductMutation,
-  useDeleteProductMutation
+  useDeleteProductMutation,
+  useGetCategoriesQuery,
+  useGetCategoryQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
 } = productSlice;
+

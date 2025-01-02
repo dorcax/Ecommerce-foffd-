@@ -162,7 +162,7 @@ const CreateProduct = () => {
       {/* add product */}
       <form action="" method="post" onSubmit={handleFormSubmission}>
         <div className="text-gray-700  bg-white shadow-2xl rounded-lg  w-full h-[20rem]  ">
-          <div className="font-bold capitalize p-4  border-b text-md">
+          <div className="font-bold capitalize p-4  border-b text-xl">
             add product photo
           </div>
           <label

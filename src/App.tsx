@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element:<EditProduct/>
       },{
         path:"create-category",
-        element:<CreateProduct/>
+        element:<CreateCategory/>
       },
       {
         path:"list-categories",
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer    />
       <RouterProvider router={router} />
     </>
   );

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery, RootState } from "@reduxjs/toolkit/query/rea
 
 export const tagTypes=["Product","Category"] 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNGQzZGRlMy03M2QyLTQwMmEtYWZkNC0yMzgwMjI1NGU1MGEiLCJlbWFpbCI6Im9wZXllbWlpYnJhaGltNjY3QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczNTI0Njk4NCwiZXhwIjoxNzM1ODUxNzg0fQ.xII8ueLYL-HsH-3hXYdOGicwFe3lczc42Fza7oDSO78";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZWNiMTBiYy1hNGM3LTRmYmUtYmUzNC1mYjEzNTdlN2IwNGUiLCJlbWFpbCI6Im9wZXllbWlpYnJhaGltNjY3QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczNTY5NjgyNiwiZXhwIjoxNzM2MzAxNjI2fQ.zgxz6XGfX6xTwGbg7ioSMOOnDcseJyNoUwPz6W4crXE";
 const baseQuery =fetchBaseQuery({
     baseUrl:"http://localhost:3000",
     prepareHeaders:(headers)=>{

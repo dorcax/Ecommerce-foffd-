@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CloudUpload } from "lucide-react";
-import { useCreateCategoryMutation } from "../../Slices/productSlice";
+import { useParams } from "react-router-dom";
+import {
+  useGetCategoriesQuery,
+  useGetCategoryQuery,
+  useUpdateCategoryMutation
+} from "../../Slices/productSlice";
 import { toast } from "react-toastify";
 const CreateCategory = () => {
-  const [createCategory] = useCreateCategoryMutation();
+  const { id:string} = useParams();
+  const { data: currCategories } = useGetCategoryQuery(id);
+  const[updateCategory]=useUpdateCategoryMutation()
   const [data, setData] = useState({ name: "", file: null as File | null });
   const [description, setDescription] = useState("");
 
@@ -23,6 +30,16 @@ const CreateCategory = () => {
       setData((prev) => ({ ...prev, file }));
     }
   };
+  // fectch detail
+  useEffect(() => {
+    if (currCategories) {
+      setData({
+        name: currCategories.name,
+        file: currCategories.imageUrl,
+      });
+      setDescription(currCategories.description);
+    }
+  }, [currCategories]);
   // handle submission change
   const handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +51,7 @@ const CreateCategory = () => {
     }
 
     try {
-      const res = await createCategory(formData).unwrap();
+      const res = await updateCategory({id,formData}).unwrap();
       console.log("category upload", res);
       toast.success("category created successfully");
     } catch (error) {
