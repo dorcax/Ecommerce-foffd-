@@ -170,9 +170,30 @@ const CreateProduct = () => {
             className="border-dashed border-2  relative   m-4 h-[14rem]  flex flex-col justify-center items-center "
           >
             <div className="flex  flex-col items-center  justify-center ">
-              <div className="text-[#FF851B] cursor-pointer ">
+              {data?.file ? (
+                <img src={URL.createObjectURL(data.file)} 
+                alt="upload preview"
+                className=" object-cover rounded-lg"
+                width={150}
+                height={20}/>
+              ):( <div>
+                <div className="text-[#FF851B] cursor-pointer ">
                 <CloudUpload className="size-16" />
               </div>
+               <div className="text-center text-gray-600  ">
+               <h2 className=" text-2xl font-medium">
+                 Drop your images here ,or{" "}
+                 <span className="text-[#FF851B] cursor-pointer">
+                   click to browse
+                 </span>
+               </h2>
+               <p className="my-2  text-sm">
+                 1600 * 2000(4:3) recommended :PNG,JPG and JPEG files are
+                 allowed
+               </p>
+             </div>
+              </div>
+            ) }
               <input
                 type="file"
                 name="file"
@@ -180,18 +201,8 @@ const CreateProduct = () => {
                 className="absolute invisible w-full h-full top-0 left-0 z-50"
                 onChange={handleFileChange}
               />
-              <div className="text-center text-gray-600  ">
-                <h2 className=" text-2xl font-medium">
-                  Drop your images here ,or{" "}
-                  <span className="text-[#FF851B] cursor-pointer">
-                    click to browse
-                  </span>
-                </h2>
-                <p className="my-2  text-sm">
-                  1600 * 2000(4:3) recommended :PNG,JPG and JPEG files are
-                  allowed
-                </p>
-              </div>
+             
+             
             </div>
             {/* {formError.file && <div className="text-red-600">{formError.file}</div>} */}
           </label>

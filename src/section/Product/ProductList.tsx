@@ -103,11 +103,11 @@ const ProductList = () => {
                   <input type="checkbox" name="" id="" />
                 </td>
                 <td className="p-3 flex items-center space-x-2">
-                  <div className=" w-14 h-14 border bg-gray-200 p-1 rounded-md">
+                  <div >
                     <img
                       src={productItem.imageUrl}
                       alt={productItem.name}
-                      className="w-full h-full object-cover"
+                      className="size-16 object-cover rounded-lg"
                     />
                   </div>
                   <div>

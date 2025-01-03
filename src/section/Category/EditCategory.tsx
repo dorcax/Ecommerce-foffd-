@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { CloudUpload } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetCategoriesQuery,
   useGetCategoryQuery,
-  useUpdateCategoryMutation
+  useUpdateCategoryMutation,
 } from "../../Slices/productSlice";
 import { toast } from "react-toastify";
-const CreateCategory = () => {
-  const { id:string} = useParams();
+const EditCategory = () => {
+  const { id } = useParams<{ id: string }>();
   const { data: currCategories } = useGetCategoryQuery(id);
-  const[updateCategory]=useUpdateCategoryMutation()
+  const [updateCategory] = useUpdateCategoryMutation();
   const [data, setData] = useState({ name: "", file: null as File | null });
   const [description, setDescription] = useState("");
+  const navigate=useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,13 +32,16 @@ const CreateCategory = () => {
     }
   };
   // fectch detail
+  console.log("cuu", currCategories);
   useEffect(() => {
     if (currCategories) {
       setData({
         name: currCategories.name,
-        file: currCategories.imageUrl,
+        file: null,
       });
+      console.log("currr", currCategories);
       setDescription(currCategories.description);
+      console.log("description", currCategories.description);
     }
   }, [currCategories]);
   // handle submission change
@@ -51,9 +55,11 @@ const CreateCategory = () => {
     }
 
     try {
-      const res = await updateCategory({id,formData}).unwrap();
+      const res = await updateCategory({ id,data:formData }).unwrap();
       console.log("category upload", res);
       toast.success("category created successfully");
+      navigate("/dashboard/list-categories")
+      
     } catch (error) {
       console.log("err", error);
       const errorMessage = error?.data?.message;
@@ -71,26 +77,26 @@ const CreateCategory = () => {
             htmlFor="img-file"
             className=" border-2 border-dashed relative rounded  m-4 h-[15rem]  flex flex-col justify-center items-center "
           >
-            {data?.file ? (
-              <img
-                src={URL.createObjectURL(data.file)}
-                alt="upload preview"
-                className=" object-cover rounded-lg"
-                width={150}
-                height={20}
-              />
-            ) : (
-              <div className="flex  flex-col items-center  justify-center ">
-                <div className="text-[#FF851B] cursor-pointer ">
-                  <CloudUpload className="size-16" />
-                </div>
-                <input
-                  type="file"
-                  name="file"
-                  id="img-file"
-                  className="absolute invisible w-full h-full top-0 left-0 z-50"
-                  onChange={handleFileChange}
+            <div className="flex flex-col items-center justify-center">
+              {data?.file ? (
+                // preview image
+                <img
+                  src={URL.createObjectURL(data.file)}
+                  alt="upload preview"
+                  className=" object-cover rounded-lg"
+                  width={150}
+                  height={20}
                 />
+              ) : currCategories?.imageUrl ? (
+                // displaying existing image
+                <img
+                  src={currCategories.imageUrl}
+                  alt="exisitng image"
+                  className=" object-cover rounded-lg"
+                  width={150}
+                  height={20}
+                />
+              ) : (
                 <div className="text-center text-gray-600  ">
                   <h2 className=" text-2xl font-medium">
                     Drop your images here ,or{" "}
@@ -103,8 +109,16 @@ const CreateCategory = () => {
                     allowed
                   </p>
                 </div>
-              </div>
-            )}
+              )}
+              <input
+                type="file"
+                name="file"
+                id="img-file"
+                className="absolute invisible w-full h-full top-0 left-0 z-50"
+                //   accept="image/png, image/jpeg"
+                onChange={handleFileChange}
+              />
+            </div>
           </label>
         </div>
         {/* category image */}
@@ -161,4 +175,4 @@ const CreateCategory = () => {
   );
 };
 
-export default CreateCategory;
+export default EditCategory;

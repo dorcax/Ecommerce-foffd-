@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditProduct from "./section/Product/EditProduct";
 import CreateCategory from "./section/Category/CreateCategory";
 import CategoryList from "./section/Category/CategoryList";
+import EditCategory from "./section/Category/EditCategory"
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path:"list-categories",
         element:<CategoryList/>
+      },
+      {
+        path:"edit-category/:id",
+        element:<EditCategory/>
       }
     ],
   },

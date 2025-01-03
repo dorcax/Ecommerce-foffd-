@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useDeleteCategoryMutation, useGetCategoriesQuery } from "../../Slices/productSlice";
 import{Trash,Pencil,Eye,Plus} from "lucide-react"
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const CategoryList = () => {
   const { data: categories, isLoading, error } = useGetCategoriesQuery();
   const[deleteCategory] =useDeleteCategoryMutation()
-  const [selectedAction, setSelectedAction] = useState<string>(null);
+  const [selectedAction, setSelectedAction] = useState(null);
+
 
   // handle action change
   const handleActionChange = (id: string) => {
@@ -22,7 +24,10 @@ const CategoryList = () => {
       const errorMessage=error?.data?.message
       toast.error(errorMessage)
      }
+
   }
+
+ 
   return (
     <section className="overflow-hidden p-4">
       <div className="bg-white rounded-lg min-h-screen border-2 ">
@@ -83,7 +88,7 @@ const CategoryList = () => {
                       <ul className="flex flex-col capitalize ">
                      
                         <li className="p-2 hover:bg-gray-100 cursor-pointer">
-                      edit
+                  <Link to={`/dashboard/edit-category/${category.id}`}>  edit</Link>
                         </li>
                         <li className="p-2 hover:bg-gray-100 cursor-pointer" onClick={()=>handleDeleteCategory(category.id)}>
                         delete

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { buildErrorMessage } from "vite";
+
 import { api } from "./apiSlice";
 
 type Product = {
@@ -10,12 +10,12 @@ type Product = {
   category: { id: string; name: string };
   stock: string;
   variant: string;
-  imageUrl: null;
+  imageUrl: string;
   color: string;
 };
 type Category = {
   id: string;
-  imageUrl: null;
+  imageUrl: string;
   description:string;
   name: string;
 };
@@ -27,7 +27,7 @@ type ProductData = {
   categoryId: string;
   color: string;
   variant: string;
-  imageUrl:null
+  imageUrl:string
 }
 
 
