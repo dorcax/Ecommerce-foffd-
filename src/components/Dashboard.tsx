@@ -47,9 +47,9 @@ const Dashboard = () => {
                 } `}
               >
                 <span>
-                  <LayoutDashboard />{" "}
+                  <LayoutDashboard />
                 </span>
-                Dashboard
+              <Link to="/dashboard">  Dashboard</Link>
               </li>
               {sidebar.map((sidebarItem) => {
                 return (

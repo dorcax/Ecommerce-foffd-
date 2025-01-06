@@ -88,7 +88,7 @@ const CategoryList = () => {
                       <ul className="flex flex-col capitalize ">
                      
                         <li className="p-2 hover:bg-gray-100 cursor-pointer">
-                  <Link to={`/dashboard/edit-category/${category.id}`}>  edit</Link>
+                  <Link to={`/edit-category/${category.id}`}>  edit</Link>
                         </li>
                         <li className="p-2 hover:bg-gray-100 cursor-pointer" onClick={()=>handleDeleteCategory(category.id)}>
                         delete

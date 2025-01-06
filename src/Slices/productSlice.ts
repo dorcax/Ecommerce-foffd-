@@ -30,7 +30,12 @@ type ProductData = {
   imageUrl:string
 }
 
-
+type getStatistics={
+  totalProduct:number,
+  totalUser:number,
+  totalOrder:number,
+  totalCategory:number
+}
 
 export const productSlice = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -116,7 +121,22 @@ export const productSlice = api.injectEndpoints({
       }),
       invalidatesTags: ["Category"],
     }),
+    // get statistics
+    getStatistics:builder.query<getStatistics,void>({
+      query:()=>({
+        url:"/product/stat/statistics",
+      
+      }),
+      providesTags:["Category","Product"]
+    }),
+    getMonthlySale:builder.query({
+      query:()=>({
+        url:"/product/monthlydata/sales",
+      }),
+      providesTags:["Order"]
+     })
   }),
+ 
 });
 
 export const {
@@ -130,5 +150,7 @@ export const {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
+  useGetStatisticsQuery,
+  useGetMonthlySaleQuery
 } = productSlice;
 

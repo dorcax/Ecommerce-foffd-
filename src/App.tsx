@@ -8,6 +8,7 @@ import EditProduct from "./section/Product/EditProduct";
 import CreateCategory from "./section/Category/CreateCategory";
 import CategoryList from "./section/Category/CategoryList";
 import EditCategory from "./section/Category/EditCategory"
+import MainDashboard from "./section/MainDashboard"
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -17,9 +18,16 @@ const router = createBrowserRouter([
     path: "/signup",
   },
   {
-    path: "dashboard",
+    path: "/",
     element: <Dashboard />,
     children: [
+      {
+        
+          path: "dashboard",
+          index:true,
+          element: <MainDashboard/>,
+        
+      },
       {
         path: "list-product",
         element: <ProductList />,

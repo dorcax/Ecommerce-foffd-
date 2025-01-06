@@ -19,14 +19,14 @@ export const sidebar = [
       {
         id: 1,
         name: "list",
-        link: "/dashboard/list-product",
+        link: "/list-product",
       },
       
       
       {
         id: 5,
         name: "create",
-        link: "/dashboard/create-product",
+        link: "/create-product",
       },
     ],
   },
@@ -38,13 +38,13 @@ export const sidebar = [
       {
         id: 1,
         name: "list",
-        link: "/dashboard/list-categories",
+        link: "/list-categories",
       },
       
       {
         id: 3,
         name: "create",
-        link: "/dashboard/create-category",
+        link: "/create-category",
       },
     ],
   },
