@@ -12,6 +12,8 @@ type Product = {
   variant: string;
   imageUrl: string;
   color: string;
+  currentPage?:number,
+  totalCount?:number
 };
 type Category = {
   id: string;

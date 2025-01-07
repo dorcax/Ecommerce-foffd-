@@ -4,6 +4,7 @@ import { useDeleteProductMutation, useGetProductsQuery } from "../../Slices/prod
 import Modal from "../../components/Modal";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Pagination from "../../components/Pagination.tsx";
 const ProductList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -37,7 +38,7 @@ const ProductList = () => {
   }
   return (
     <div className=" overflow-hidden p-4 ">
-      <div className="container min-h-screen bg-white rounded-lg relative">
+      <div className="container min-h-screen bg-white rounded-lg relative ">
         <div className="flex justify-between px-3 items-center">
           <div className="text-black text-xl capitalize font-medium py-4">
             All product List
@@ -147,7 +148,10 @@ const ProductList = () => {
                 </td>
               </tr>
             ))}
+          
           </tbody>
+          
+       
         </table>
 
         {isOpenModal && (
@@ -157,6 +161,7 @@ const ProductList = () => {
             selectedProduct={selectedProduct}
           />
         )}
+        <Pagination currentPage={products?.currentPage} totalCount={products?.totalCount}/>
       </div>
     </div>
   );

@@ -40,7 +40,7 @@ const chartData = {
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
 
-            width:"20rem"
+            
         },
     ],
 };
@@ -53,7 +53,7 @@ const options = {
     },
 };
   return (
-    <div><Line data={chartData} options={options}/></div>
+    <div className=""><Line data={chartData} options={options}/></div>
   )
 }
 

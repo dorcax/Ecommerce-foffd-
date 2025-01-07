@@ -17,13 +17,13 @@ const Dashboard = () => {
 
   // con
   return (
-    <div className="flex overflow-hidden h-screen relative text-[#E0E0E0] ">
+    <div className="flex overflow-hidden h-screen relative text-black ">
       <div
-        className={` bg-[#343A40] sticky top-0 h-screen ${
-          !open ? "w-20" : "w-52"
+        className={` bg-white shadow-md sticky top-0 h-screen  ${
+          !open ? "w-20 " : "w-48"
         } transition-all ease-in-out duration-500 p-2`}
       >
-        <div className="  flex justify-between items-center  ">
+        <div className="  flex justify-center items-center py-3 ">
           <img
             src="/images/logo2.png"
             alt=""
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
         <div className=" p-3">
           <h6
-            className={`text-sm pb-3 uppercase font-medium ${
+            className={`text-md pb-3 uppercase font-medium ${
               !open && "hidden"
             }`}
           >
@@ -42,28 +42,28 @@ const Dashboard = () => {
           <nav className="flex items-center ">
             <ul className="capitalize w-full">
               <li
-                className={`py-2 text-md flex gap-3 ${
-                  !open ? "hidden" : "block"
+                className={`py-2 text-md flex gap-3 hover:bg-blue-700 hover:text-white  ${
+                  !open ? "hidden " : "block"
                 } `}
               >
-                <span>
+                
                   <LayoutDashboard />
-                </span>
+                
               <Link to="/dashboard">  Dashboard</Link>
               </li>
               {sidebar.map((sidebarItem) => {
                 return (
                   <li
                     key={sidebarItem.id}
-                    className="py-2 text-md   cursor-pointer  transition-all duration-500 ease-in-out  "
+                    className={`py-4 text-md   cursor-pointer   transition-all duration-500 ease-in-out  ${!open &&"mx-2"}`}
                   >
                     <div
-                      className={`flex justify-between ${
-                        !open && "items-center"
+                      className={`flex justify-between hover:bg-blue-700 hover:text-white py-2 ${
+                        !open && " items-center"
                       } `}
                     >
-                      <div className="flex space-x-3 hover:text-[#FF851B] ">
-                        <span>{sidebarItem.img}</span>
+                      <div className="flex space-x-3  ">
+                        <span >{sidebarItem.img}</span>
                         <span className={`${!open ? "hidden" : "block"}`}>
                           
                           {sidebarItem.name}
@@ -112,7 +112,7 @@ const Dashboard = () => {
       </div>
 
       <div className=" flex-1 overflow-y-auto bg-stone-200 h-screen flex flex-col ">
-        <div className="  flex  justify-between items-center p-4">
+        <div className="  flex  justify-between items-center p-4 bg-white shadow-lg">
           <div className="flex gap-4  text-gray-700 items-center">
             <div onClick={() => setOpen(!open)}>
               <Menu />

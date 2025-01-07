@@ -48,23 +48,23 @@ export const sidebar = [
       },
     ],
   },
-  {
-    id: 3,
-    name: "inventory",
-    img: <Package />,
-    list: [
-      {
-        id: 1,
-        name: "warehouse",
-        link: "/dashboard/product",
-      },
-      {
-        id: 2,
-        name: "received orders",
-        link: "/dashboard/product",
-      },
-    ],
-  },
+  // {
+  //   id: 3,
+  //   name: "inventory",
+  //   img: <Package />,
+  //   list: [
+  //     {
+  //       id: 1,
+  //       name: "warehouse",
+  //       link: "/dashboard/product",
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "received orders",
+  //       link: "/dashboard/product",
+  //     },
+  //   ],
+  // },
   {
     id: 4,
     name: "orders",
@@ -92,72 +92,7 @@ export const sidebar = [
       },
     ],
   },
-  {
-    id: 5,
-    name: "attributes",
-    img: <PartyPopper />,
-    list: [
-      {
-        id: 1,
-        name: "list",
-        link: "/dashboard/product",
-      },
-      {
-        id: 2,
-        name: "edit",
-        link: "/dashboard/product",
-      },
-      {
-        id: 3,
-        name: "create",
-        link: "/dashboard/product",
-      },
-    ],
-  },
-  {
-    id: 6,
-    name: "purchases",
-    img: <AppWindow />,
-    list: [
-      {
-        id: 1,
-        name: "list",
-        link: "/dashboard/product",
-      },
-      {
-        id: 2,
-        name: "orders",
-        link: "/dashboard/product",
-      },
-      {
-        id: 3,
-        name: "return",
-        link: "/dashboard/product",
-      },
-    ],
-  },
-  {
-    id: 7,
-    name: "invoices",
-    img: <ReceiptText />,
-    list: [
-      {
-        id: 1,
-        name: "list",
-        link: "/dashboard/product",
-      },
-      {
-        id: 2,
-        name: "details",
-        link: "/dashboard/product",
-      },
-      {
-        id: 3,
-        name: "create",
-        link: "/dashboard/product",
-      },
-    ],
-  },
+  
 ];
 
 export const predefinedColor = [
