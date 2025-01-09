@@ -12,8 +12,8 @@ type Product = {
   variant: string;
   imageUrl: string;
   color: string;
-  currentPage?:number,
-  totalCount?:number
+  // currentPage?:number,
+  // totalCount?:number
 };
 type Category = {
   id: string;
@@ -41,9 +41,9 @@ type getStatistics={
 
 export const productSlice = api.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query<Product[], void>({
-      query: () => ({
-        url: "/product",
+    getProducts: builder.query<Product[], {page:number,limit:number,search:any}>({
+      query: ({page,limit,search}) => ({
+        url: `/product?page=${page}&limit=${limit}&search=${search}`,
       }),
       providesTags: ["Product"],
     }),
@@ -64,7 +64,7 @@ export const productSlice = api.injectEndpoints({
       invalidatesTags: ["Product"],
     }),
 
-    updateProduct: builder.mutation<Product, { id: string; data: FormData }>({
+    updateProduct: builder.mutation<Product, { id: string, data: FormData }>({
       query: ({ id, data }) => ({
         url: `/product/${id}`,
         method: "PATCH",

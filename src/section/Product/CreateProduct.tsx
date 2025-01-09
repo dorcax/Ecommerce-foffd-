@@ -145,7 +145,8 @@ const CreateProduct = () => {
 
     if (data.file) {
       formData.append("file", data.file);
-    }
+   }
+    
     try {
       const res = await createProduct(formData).unwrap();
       toast.success("product uploaded successfully");

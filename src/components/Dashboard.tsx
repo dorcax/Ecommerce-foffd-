@@ -12,14 +12,14 @@ const Dashboard = () => {
     setSelectedLink(selectedLink === id ? 0 : id);
   };
 
-  const location = useLocation().pathname;
-  let pageTitle = location.replace("/dashboard/", "").split("-").join(" ");
+  // const location = useLocation().pathname;
+  // let pageTitle = location.replace("/dashboard/", "").split("-").join(" ");
 
   // con
   return (
     <div className="flex overflow-hidden h-screen relative text-black ">
       <div
-        className={` bg-white shadow-md sticky top-0 h-screen  ${
+        className={` bg-[#1E3A8A] shadow-md sticky top-0 h-screen  ${
           !open ? "w-20 " : "w-48"
         } transition-all ease-in-out duration-500 p-2`}
       >
@@ -33,16 +33,16 @@ const Dashboard = () => {
 
         <div className=" p-3">
           <h6
-            className={`text-md pb-3 uppercase font-medium ${
+            className={`text-md text-white pb-3 uppercase font-medium ${
               !open && "hidden"
             }`}
           >
             general
           </h6>
-          <nav className="flex items-center ">
+          <nav className="flex items-center text-white ">
             <ul className="capitalize w-full">
               <li
-                className={`py-2 text-md flex gap-3 hover:bg-blue-700 hover:text-white  ${
+                className={`py-4 text-md flex gap-3  ${
                   !open ? "hidden " : "block"
                 } `}
               >
@@ -58,7 +58,7 @@ const Dashboard = () => {
                     className={`py-4 text-md   cursor-pointer   transition-all duration-500 ease-in-out  ${!open &&"mx-2"}`}
                   >
                     <div
-                      className={`flex justify-between hover:bg-blue-700 hover:text-white py-2 ${
+                      className={`flex justify-between  ${
                         !open && " items-center"
                       } `}
                     >
@@ -111,15 +111,13 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className=" flex-1 overflow-y-auto bg-stone-200 h-screen flex flex-col ">
+      <div className=" flex-1 overflow-y-auto bg-[#F4F5F7] h-screen flex flex-col ">
         <div className="  flex  justify-between items-center p-4 bg-white shadow-lg">
           <div className="flex gap-4  text-gray-700 items-center">
             <div onClick={() => setOpen(!open)}>
               <Menu />
             </div>
-            <span className="text-lg capitalize font-semibold text-gray-700">
-              {pageTitle}
-            </span>
+          
           </div>
           <div className="flex items-center gap-6 ">
             <div className="flex  gap-3">
@@ -137,7 +135,7 @@ const Dashboard = () => {
                 type="text"
                 name=""
                 id=""
-                className=" w-[16rem] rounded-lg py-2 bg-[#000] outline-none px-10 "
+                className=" w-[16rem] rounded-lg py-2 bg-[#F4F5F7] outline-none px-10 "
                 placeholder="search....."
               />
               <span className="absolute top-2 left-0 px-2 ">

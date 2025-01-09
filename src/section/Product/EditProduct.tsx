@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CloudUpload,LoaderCircle } from "lucide-react";
+import { CloudUpload, LoaderCircle } from "lucide-react";
 import ColorPicker from "../../components/ColorPicker";
 import SizePicker from "../../components/SizePicker";
 import CategorySelect from "../../components/CategorySelect";
@@ -7,12 +7,14 @@ import {
   useGetProductQuery,
   useUpdateProductMutation,
 } from "../../Slices/productSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditProduct = () => {
-  const { id } = useParams();
+  const { id } = useParams<string>();
+
   const { data: currProduct, isLoading, error } = useGetProductQuery(id);
+
   const [updateProduct, { isLoading: loading }] = useUpdateProductMutation();
 
   const [data, setData] = useState({
@@ -74,23 +76,24 @@ const EditProduct = () => {
 
     setSelectedColor(color);
   };
+  const navigate = useNavigate();
   //   /useeffect for product
   useEffect(() => {
     if (currProduct) {
       setData({
-        name: currProduct.name,
-        price: currProduct.price,
-        stock: currProduct.stock,
-        file: currProduct.imageUrl,
+        name: currProduct?.name,
+        price: currProduct?.price,
+        stock: currProduct?.stock,
+        file: currProduct?.imageUrl,
       });
-      setDescription(currProduct.description);
+      setDescription(currProduct?.description);
 
       setSelectedCategory({
-        id: currProduct.category.id,
-        name: currProduct.category.name,
+        id: currProduct?.category?.id,
+        name: currProduct?.category?.name,
       });
-      setSelectedColor(currProduct.color);
-      setSelectedSize(currProduct.variant);
+      setSelectedColor(currProduct?.color);
+      setSelectedSize(currProduct?.variant);
     }
   }, [currProduct]);
 
@@ -108,21 +111,27 @@ const EditProduct = () => {
       formData.append("file", data.file);
       console.log("fillels", data.file);
     }
-    console.log("formdata", formData);
+
     try {
-      const product = await updateProduct({ id, formData }).unwrap();
+      const product = await updateProduct({ id, data: formData }).unwrap();
 
       toast.success("product uploaded successfully");
+      navigate("/list-product");
     } catch (error) {
-      const errorMessage = error?.data?.message?.join("\n");
+      const errorMessage = error.data;
 
       toast.error(errorMessage);
     }
   };
 
-  if (isLoading) return <div className="flex justify-center items-center text-black">
-    <div className="py-40 animate-spin border-2 w-20 h-20 text-green-600"><LoaderCircle  /></div>
-  </div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center text-black">
+        <div className="py-40 animate-spin border-2 w-20 h-20 text-green-600">
+          <LoaderCircle />
+        </div>
+      </div>
+    );
 
   return (
     <div>
@@ -139,7 +148,7 @@ const EditProduct = () => {
               className="border-dashed border-2 relative m-4 h-[14rem] flex flex-col justify-center items-center"
             >
               <div className="flex flex-col items-center justify-center">
-                {data?.file ? (
+                {data.file && data.file instanceof File ? (
                   // preview image
                   <img
                     src={URL.createObjectURL(data.file)}
@@ -151,7 +160,7 @@ const EditProduct = () => {
                 ) : currProduct?.imageUrl ? (
                   // displaying existing image
                   <img
-                    src={currProduct.imageUrl}
+                    src={currProduct?.imageUrl}
                     alt="exisitng image"
                     className=" object-cover rounded-lg"
                     width={150}
@@ -184,7 +193,7 @@ const EditProduct = () => {
           </div>
           {/* product information */}
 
-          <div className="bg-white shadow-2xl rounded-lg w-full  text-gray-700 my-8">
+          <div className="bg-white shadow-2xl rounded-lg w-full  text-[#374151] my-8">
             <div className=" text-md font-bold p-4 capitalize border-b  ">
               personal information
             </div>
@@ -293,7 +302,7 @@ const EditProduct = () => {
                     ${
                       loading
                         ? "bg-red-800 text-white cursor-not-allowed"
-                        : "bg-gray-100 hover:bg-gray-500 hover:text-white"
+                        : "bg-[#3B82F6] text-white"
                     }`}
                 disabled={loading} // Disable the button when loading
               >
@@ -301,7 +310,7 @@ const EditProduct = () => {
               </button>
               <button
                 type="button"
-                className="border p-2 mb-2  text-sm  capitalize cursor-pointer rounded-lg bg-[#FF851B]  text-white hover:bg-[#ff6f1bfd] transition-all ease-in-out duration-500"
+                className="border p-2 mb-2  text-sm  capitalize cursor-pointer rounded-lg bg-[#F87171]  text-white "
               >
                 cancel
               </button>

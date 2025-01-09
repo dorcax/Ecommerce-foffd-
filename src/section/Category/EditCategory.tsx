@@ -58,7 +58,7 @@ const EditCategory = () => {
       const res = await updateCategory({ id,data:formData }).unwrap();
       console.log("category upload", res);
       toast.success("category created successfully");
-      navigate("/dashboard/list-categories")
+      navigate("/list-categories")
       
     } catch (error) {
       console.log("err", error);

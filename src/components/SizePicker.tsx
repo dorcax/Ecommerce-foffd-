@@ -14,7 +14,7 @@ const SizePicker = ({handleSizeChange,selectedSize}:SizePickerProps) => {
         const isSelectedSize =selectedSize===size
         return (
           <button type='button' className={`w-10 h-10   bg-gray-200   rounded-full  uppercase
-        text-sm ${isSelectedSize && "bg-red-600"}`}
+        text-sm ${isSelectedSize && "bg-[#FACC15]"}`}
         onClick={()=>handleSizeChange(size)} key={index}>{size}</button>
         )
         
