@@ -22,15 +22,19 @@ const Pagination = ({data,page,limit}:{page:number,limit:number,data:any}) => {
  const renderPageButtons = () => {
   const pageButtons = [];
   for (let i = 1; i <= data?.totalPages; i++) {
-    pageButtons.push(
-      <button
-        key={i}
-        className={`px-2 rounded-sm ${i === page ? 'bg-blue-600 text-white' : ''}`}
-        onClick={() => navigate(`?page=${i}&limit=${limit}`)}
-      >
-        {i}
-      </button>
-    );
+    
+      pageButtons.push(
+        <button
+          key={i}
+          className={`px-2 rounded-sm ${i === page ? 'bg-blue-600 text-white' : ''}`}
+          onClick={() => navigate(`?page=${i}&limit=${limit}`)}
+        >
+          {i}
+        </button>
+            );
+  
+    
+
   }
   return pageButtons;
 };

@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Pagination from "../../components/Pagination.tsx";
 import { useLocation,useNavigate} from "react-router-dom";
+import { exportToExcel } from 'react-json-to-excel';
+
 
 // Function to get query parameter from URL
 
@@ -24,9 +26,9 @@ const ProductList = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const[searchTerm,setSearchTerm]=useState("")
-   console.log("ffffff",searchTerm)
+  const location = useLocation();
   const getQueryParams = () => {
-    const location = useLocation();
+  
     const queryParams = new URLSearchParams(location.search);
     const page = parseInt(queryParams.get("page") || "1", 10); // Default to page 1
     const limit = parseInt(queryParams.get("limit") || "4", 10); // Default to limit 10
@@ -36,7 +38,7 @@ const ProductList = () => {
   // Get page and limit from the URL query parameters
   const { page, limit,search } = getQueryParams();
  
-  const { data, error, isLoading } = useGetProductsQuery({ page, limit ,search});
+  const { data, error, isLoading } = useGetProductsQuery({ page, limit ,search:searchTerm});
   const products = data?.products || [];
 
   const [deleteProduct] = useDeleteProductMutation();
@@ -64,13 +66,14 @@ const ProductList = () => {
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    const queryParams = new URLSearchParams();
-    if (value) queryParams.set("search", value);
-   
-  //  queryParams.set("page", page);
-  //   queryParams.set("limit", limit);
-    navigate(`?${queryParams.toString()}`);
   };
+  
+  useEffect(() => {
+    const queryParams = new URLSearchParams();
+    if (searchTerm) queryParams.set("search", searchTerm);
+    navigate(`?${queryParams.toString()}`);
+  }, [searchTerm, navigate]);
+  
 
   if (isLoading) {
     return <h1>loading</h1>;
@@ -117,17 +120,12 @@ const ProductList = () => {
                 </span>
               </div>
               {isOpen && (
-                <ul className="absolute right-0 p-3 top-full w-[12rem] border bg-white shadow-2xl z-40  capitalize rounded-md text-gray-600 font-medium">
-                  <li className="hover:bg-gray-200 hover:p-1 cursor-pointer  ">
-                    download
-                  </li>
-                  <li className="hover:bg-gray-200 hover:p-1 cursor-pointer">
-                    export{" "}
-                  </li>
-                  <li className="hover:bg-gray-200 hover:p-1 cursor-pointer ">
-                    import{" "}
-                  </li>
-                </ul>
+                <div className="absolute right-0 p-3 top-full w-[12rem] border bg-white shadow-2xl z-40  capitalize rounded-md text-gray-600 font-medium">
+                  <button className="hover:bg-gray-200 hover:p-1 cursor-pointer" onClick={() => exportToExcel(products, 'downloadfilename')}>
+                    Download
+                  </button>
+           
+                </div>
               )}
             </div>
           </div>
